@@ -236,16 +236,16 @@ namespace vinnysitemapgenerator
         private static void GrantHelp()
         {
             Console.WriteLine();
-            Console.WriteLine("usage\t\tИспользование");
+            Console.WriteLine("See https://github.com/VinnySmallUtilities/SitemapGenerator/blob/master/README.md");
             Console.WriteLine("usage\t\tИспользование");
             Console.WriteLine("vsm.exe LocalPathToSiteRoot");
             Console.WriteLine("vsm.exe УкажитеЛокальныйПутьККорнюСайта");
             Console.WriteLine();
-            Console.WriteLine("Set in file " + cfgSite + " in first line url of site (in root site directory)");
-            Console.WriteLine("Укажите в первой строке файла " + cfgSite + " url сайта (в корневой директории сайта)");
+            Console.WriteLine("Create " + cfgSite + " in the root site local directory. Set the first line to the url of site (in root site directory)");
+            Console.WriteLine("Создайте в локальной корневой директории сайта файл " + cfgSite + ". В первой строке этого файла запишите url сайта");
             Console.WriteLine();
-            Console.WriteLine("Execute vsm.exe in the root site directory");
-            Console.WriteLine("Запустите vsm.exe в корневой директории сайта");
+            Console.WriteLine("Execute vsm.exe with one argument: vsm.exe LocalPathToSiteRoot");
+            Console.WriteLine("Запустите vsm.exe с одним аргументом: vsm.exe LocalPathToSiteRoot");
             Console.WriteLine();
             Console.WriteLine("Will generated " + cfgFileName + " and sitemap.xml");
             Console.WriteLine("Сгенерируются " + cfgFileName + " и sitemap.xml");
