@@ -10,8 +10,8 @@ Small console .NET Core application to generate the simple sitemap.xml from loca
 Usage
 vsm.exe LocalPathToSiteRoot
 
-1. Create in the root site local directory.
-In file "site.cfg" set the first line the url of site 
+1. Create "site.cfg" in the root site local directory.
+In file "site.cfg" set the first line to the url of site 
 See example at https://github.com/consp11/consp11.github.io/blob/master/site.cfg
 
 2. Execute vsm.exe with one argument.
