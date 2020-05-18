@@ -5,7 +5,9 @@
 ----------------------------------------------------
 English
 
-Small console .NET Core application to generate the simple sitemap.xml from local
+For execute require .NET Core 3.1.
+
+Small console .NET Core application to generate the simple sitemap.xml from the local site directory
 
 Usage
 vsm.exe LocalPathToSiteRoot
@@ -37,6 +39,10 @@ and publish new sitemap.xml to the your site
 
 ----------------------------------------------------
 Русский
+
+Для запуска требует наличия .NET Core 3.1
+
+Это маленький консольный генератор для генерации простых sitemap.xml по локальной директории сайта
 
 Использование
 vsm.exe УкажитеЛокальныйПутьККорнюСайта
