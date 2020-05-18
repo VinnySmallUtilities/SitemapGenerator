@@ -17,10 +17,20 @@ namespace vinnysitemapgenerator
         public static          string SiteUrl = "";
         static void Main(string[] args)
         {
-            CurDir     = Directory.GetCurrentDirectory();
             bool error = false;
             try
             {
+                if (args.Length == 1)
+                {
+                    CurDir = args[0].Trim();
+                    var di = new DirectoryInfo(CurDir);
+                    CurDir = di.FullName;
+                    if (!di.Exists)
+                        error = true;
+                    else
+                        Directory.SetCurrentDirectory(CurDir);
+                }
+
                 var siteConfig = File.ReadAllLines(cfgSite);
 
                 SiteUrl = siteConfig[0].Trim();
@@ -32,8 +42,9 @@ namespace vinnysitemapgenerator
 
             Console.WriteLine("Vinny sitemap generator: " + Version);
             Console.WriteLine("Current directory: \r\n" + CurDir);
+            Console.WriteLine("For site: \r\n" + SiteUrl);
 
-            if (error || args.Length >= 1)
+            if (error || args.Length == 0 || args.Length > 1)
             {
                 GrantHelp();
                 return;
@@ -57,6 +68,9 @@ namespace vinnysitemapgenerator
 
             foreach (var sf in collection)
             {
+                if (sf.Value.forbidden != 0)
+                    continue;
+
                 var FileName = Path.GetRelativePath(CurDir, sf.Value.fi.FullName);
 
                 var dt = sf.Value.fi.LastWriteTime;
@@ -70,7 +84,7 @@ namespace vinnysitemapgenerator
                 xml.Add("");
             }
 
-            xml.Add("</url></urlset>");
+            xml.Add("</urlset>");
 
             File.WriteAllLines("sitemap.xml", xml, Encoding.UTF8);
         }
@@ -98,10 +112,14 @@ namespace vinnysitemapgenerator
 
                 var sf = new SiteFile("0.5: " + FileName);
 
-                if (sf.fi.Name == "vsm.exe" || sf.fi.Name == cfgFileName || sf.fi.Name == cfgSite || sf.fi.Name == "robots.txt")
-                    continue;
-
-                sf.priority = sf.calculatePriority();
+                if (sf.fi.Name == "vsm.exe" || sf.fi.Name == cfgFileName || sf.fi.Name == cfgSite || sf.fi.Name == "robots.txt" || sf.relativeUrl.StartsWith("."))
+                {
+                    sf.forbidden = 1;
+                }
+                else
+                {
+                    sf.priority = sf.calculatePriority();
+                }
                 collection.Add(sf.fi.FullName, sf);
             }
         }
@@ -144,7 +162,7 @@ namespace vinnysitemapgenerator
             public readonly string   relativeUrl;
             public          float    priority;
             public readonly FileInfo fi;
-            public readonly int      forbidden;
+            public          int      forbidden;
 
             public SiteFile(string DescriptionLine)
             {
@@ -219,6 +237,10 @@ namespace vinnysitemapgenerator
         {
             Console.WriteLine();
             Console.WriteLine("usage\t\tИспользование");
+            Console.WriteLine("usage\t\tИспользование");
+            Console.WriteLine("vsm.exe LocalPathToSiteRoot");
+            Console.WriteLine("vsm.exe УкажитеЛокальныйПутьККорнюСайта");
+            Console.WriteLine();
             Console.WriteLine("Set in file " + cfgSite + " in first line url of site (in root site directory)");
             Console.WriteLine("Укажите в первой строке файла " + cfgSite + " url сайта (в корневой директории сайта)");
             Console.WriteLine();
